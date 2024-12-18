@@ -5,4 +5,9 @@
 This package adds:
 
  * Syntax-highlighting for scribble constructs and keywords
- * Keybinds for interacting with and inserting Scribble constructs faster
+ * Keybinds for interacting with and inserting Scribble constructs faster (think auctex for scribble)
+
+** Keybinds
+
+ * =C-c C-d= adds a /datum/ from a completion. This includes titles, sections, items, etc. You can add more datums by modifying =scribble-mode-collection=: ~(add-to-list 'scribble-mode-collection '(example "@example{" "}"))~.
+ * =C-c C-j= inserts a new =@item=.
