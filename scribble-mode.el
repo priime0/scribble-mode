@@ -115,6 +115,39 @@
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.scrbl\\'" . scribble-mode))
 
+;;;; Keybindings:
+
+(defun scribble-mode-balance (char)
+  "Insert CHAR and balance it."
+  (let ((closing
+         (pcase char
+           ("(" ")")
+           ("{" "}")
+           ("[" "]")
+           (_ ""))))
+    (insert char)
+    (insert closing)
+    (backward-char)))
+
+(defun scribble-mode-open-paren ()
+  "Insert balanced parentheses."
+  (interactive)
+  (scribble-mode-balance "("))
+
+(defun scribble-mode-open-brace ()
+  "Insert balanced curly braces."
+  (interactive)
+  (scribble-mode-balance "{"))
+
+(defun scribble-mode-open-bracket ()
+  "Insert balanced brackets."
+  (interactive)
+  (scribble-mode-balance "["))
+
+(keymap-set scribble-mode-map "(" #'scribble-mode-open-paren)
+(keymap-set scribble-mode-map "{" #'scribble-mode-open-brace)
+(keymap-set scribble-mode-map "[" #'scribble-mode-open-bracket)
+
 (provide 'scribble-mode)
 
 ;;; scribble-mode.el ends here
