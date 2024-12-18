@@ -144,9 +144,38 @@
   (interactive)
   (scribble-mode-balance "["))
 
+(defvar scribble-mode-collection
+  '((title . ("@title{" "}"))
+    (section . ("@section{" "}"))
+    (subsection . ("@subsection{" "}"))
+    (italic . ("@italic{" "}"))
+    (bold . ("@bold{" "}"))
+    (item . ("@item{" "}"))
+    (itemlist . ("@itemlist[\n@item{" "}\n]"))
+    (require . ("@require[" "]"))
+    (include-section . ("@include-section{" "}"))
+    (defstruct . ("@defstruct[" "]{}"))
+    (defstruct* . ("@defstruct*[" "]{}"))
+    (defproc . ("@defproc[" "]{}"))
+    (defmodule . ("@defmodule[" "]")))
+  "Collection for datum completion in scribble-mode.")
+
+(defun scribble-mode-add-datum ()
+  "Inserts the selected datum from completion."
+  (interactive)
+  (let* ((prompt "Datum: ")
+         (completion-result (completing-read prompt scribble-mode-collection nil t))
+         (completion-candidate (cdr (assoc (intern completion-result) scribble-mode-collection)))
+         (insert-prefix (car completion-candidate))
+         (insert-suffix (cadr completion-candidate)))
+    (insert insert-prefix)
+    (insert insert-suffix)
+    (backward-char (length insert-suffix))))
+
 (keymap-set scribble-mode-map "(" #'scribble-mode-open-paren)
 (keymap-set scribble-mode-map "{" #'scribble-mode-open-brace)
 (keymap-set scribble-mode-map "[" #'scribble-mode-open-bracket)
+(keymap-set scribble-mode-map "C-c C-d" #'scribble-mode-add-datum)
 
 (provide 'scribble-mode)
 
