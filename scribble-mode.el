@@ -1,12 +1,13 @@
 ;;; scribble-mode.el --- Major mode for editing Scribble documents -*- lexical-binding: t; -*-
 
 ;; Copyright (c) 2014 Mario Rodas <marsam@users.noreply.github.com>
+;; Copyright (c) 2024 Lucas Sta Maria <lucas@priime.dev>
 
-;; Author: Mario Rodas <marsam@users.noreply.github.com>
-;; URL: https://github.com/emacs-pe/scribble-mode
+;; Author: Mario Rodas <marsam@users.noreply.github.com>, Lucas Sta Maria <lucas@priime.dev>
+;; URL: https://github.com/priime0/scribble-mode
 ;; Keywords: convenience
 ;; Version: 0.1
-;; Package-Requires: ((emacs "24"))
+;; Package-Requires: ((emacs "29"))
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -27,13 +28,6 @@
 
 ;;; Commentary:
 ;; A major mode for editing Scribble documents.
-;;
-;; You can install [geiser][] to `scribble-mode-hook' to eldoc and auto
-;; completion support:
-;;
-;;     (add-hook 'scribble-mode-hook #'geiser-mode)
-;;
-;; [geiser]: http://www.nongnu.org/geiser/
 
 ;;; Code:
 

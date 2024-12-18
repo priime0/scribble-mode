@@ -1,0 +1,8 @@
+#+title: scribble-mode
+
+=scribble-mode= is a major mode for editing [[https://docs.racket-lang.org/scribble/][scribble]] documentation files from the [[https://racket-lang.org/][Racket]] programming language. This is a fork of the [[https://github.com/emacs-pe/scribble-mode][emacs-pe/scribble-mode]] package.
+
+This package adds:
+
+ * Syntax-highlighting for scribble constructs and keywords
+ * Keybinds for interacting with and inserting Scribble constructs faster
