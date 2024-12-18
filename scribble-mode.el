@@ -172,19 +172,22 @@
     (insert suffix)
     (backward-char (length suffix))))
 
+(defun scribble-mode--get+insert-datum (key)
+  "Retrieves the datum with KEY and inserts it."
+  (scribble-mode--insert-datum (scribble-mode--get-datum key)))
+
 (defun scribble-mode-add-datum ()
   "Inserts the selected datum from completion."
   (interactive)
   (let* ((prompt "Datum: ")
-         (completion-result (completing-read prompt scribble-mode-collection nil t))
-         (completed-datum (scribble-mode--get-datum completion-result)))
-    (scribble-mode--insert-datum completed-datum)))
+         (completion-result (completing-read prompt scribble-mode-collection nil t)))
+    (scribble-mode--get+insert-datum completion-result)))
 
 (defun scribble-mode-add-item ()
   "Insert an item."
   (interactive)
   (insert "\n")
-  (scribble-mode--insert-datum (scribble-mode--get-datum "item")))
+  (scribble-mode--get+insert-datum "item"))
 
 (keymap-set scribble-mode-map "(" #'scribble-mode-open-paren)
 (keymap-set scribble-mode-map "{" #'scribble-mode-open-brace)
