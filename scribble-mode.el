@@ -117,6 +117,22 @@
 
 ;;;; Keybindings:
 
+(defvar scribble-mode-collection
+  '((title ("@title{" "}"))
+    (section "@section{" "}")
+    (subsection "@subsection{" "}")
+    (italic "@italic{" "}")
+    (bold "@bold{" "}")
+    (item "@item{" "}")
+    (itemlist "@itemlist[\n@item{" "}\n]")
+    (require "@require[" "]")
+    (include-section "@include-section{" "}")
+    (defstruct "@defstruct[" "]{}")
+    (defstruct* "@defstruct*[" "]{}")
+    (defproc "@defproc[" "]{}")
+    (defmodule "@defmodule[" "]"))
+  "Collection for datum completion in scribble-mode.")
+
 (defun scribble-mode-balance (char)
   "Insert CHAR and balance it."
   (let ((closing
@@ -144,33 +160,25 @@
   (interactive)
   (scribble-mode-balance "["))
 
-(defvar scribble-mode-collection
-  '((title . ("@title{" "}"))
-    (section . ("@section{" "}"))
-    (subsection . ("@subsection{" "}"))
-    (italic . ("@italic{" "}"))
-    (bold . ("@bold{" "}"))
-    (item . ("@item{" "}"))
-    (itemlist . ("@itemlist[\n@item{" "}\n]"))
-    (require . ("@require[" "]"))
-    (include-section . ("@include-section{" "}"))
-    (defstruct . ("@defstruct[" "]{}"))
-    (defstruct* . ("@defstruct*[" "]{}"))
-    (defproc . ("@defproc[" "]{}"))
-    (defmodule . ("@defmodule[" "]")))
-  "Collection for datum completion in scribble-mode.")
+(defun scribble-mode--get-datum (key)
+  "Retrieve the prefix and suffix with KEY."
+  (cdr (assoc (intern key) scribble-mode-collection)))
+
+(defun scribble-mode--insert-datum (datum)
+  "Inserts the DATUM."
+  (let ((prefix (car datum))
+        (suffix (cadr datum)))
+    (insert prefix)
+    (insert suffix)
+    (backward-char (length suffix))))
 
 (defun scribble-mode-add-datum ()
   "Inserts the selected datum from completion."
   (interactive)
   (let* ((prompt "Datum: ")
          (completion-result (completing-read prompt scribble-mode-collection nil t))
-         (completion-candidate (cdr (assoc (intern completion-result) scribble-mode-collection)))
-         (insert-prefix (car completion-candidate))
-         (insert-suffix (cadr completion-candidate)))
-    (insert insert-prefix)
-    (insert insert-suffix)
-    (backward-char (length insert-suffix))))
+         (completed-datum (scribble-mode--get-datum completion-result)))
+    (scribble-mode--insert-datum completed-datum)))
 
 (keymap-set scribble-mode-map "(" #'scribble-mode-open-paren)
 (keymap-set scribble-mode-map "{" #'scribble-mode-open-brace)
