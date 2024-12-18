@@ -6,7 +6,7 @@
 ;; Author: Mario Rodas <marsam@users.noreply.github.com>, Lucas Sta Maria <lucas@priime.dev>
 ;; URL: https://github.com/priime0/scribble-mode
 ;; Keywords: convenience
-;; Version: 0.1
+;; Version: 0.2
 ;; Package-Requires: ((emacs "29"))
 
 ;; This file is NOT part of GNU Emacs.
