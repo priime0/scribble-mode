@@ -180,10 +180,17 @@
          (completed-datum (scribble-mode--get-datum completion-result)))
     (scribble-mode--insert-datum completed-datum)))
 
+(defun scribble-mode-add-item ()
+  "Insert an item."
+  (interactive)
+  (insert "\n")
+  (scribble-mode--insert-datum (scribble-mode--get-datum "item")))
+
 (keymap-set scribble-mode-map "(" #'scribble-mode-open-paren)
 (keymap-set scribble-mode-map "{" #'scribble-mode-open-brace)
 (keymap-set scribble-mode-map "[" #'scribble-mode-open-bracket)
 (keymap-set scribble-mode-map "C-c C-d" #'scribble-mode-add-datum)
+(keymap-set scribble-mode-map "C-c C-j" #'scribble-mode-add-item)
 
 (provide 'scribble-mode)
 
